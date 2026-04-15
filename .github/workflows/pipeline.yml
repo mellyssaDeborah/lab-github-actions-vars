@@ -38,24 +38,25 @@ jobs:
           # TODO: Gere um numero aleatorio e o salve em GITHUB_ENV como BUILD_HASH
           # Exemplo: RANDOM_NUM=$RANDOM
           # echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
-          RANDOM_NUM=$RANDOM
-          echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
+          echo "BUILD_HASH=VALOR_GERADO_AQUI" >> $GITHUB_ENV # Placeholder
 
       - name: "Passo 5: Usar Codigo Dinamico"
         run: |
           # TODO: Imprima o BUILD_HASH gerado no passo anterior
-          echo "O hash gerado para este build foi: $BUILD_HASH"
+          RANDOM_NUM=$RANDOM
+          echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
 
-deploy_app:
-  name: Deploy da Aplicacao
-  runs-on: ubuntu-latest
-  needs: build_app
+  deploy_app:
+    name: Deploy da Aplicacao
+    runs-on: ubuntu-latest
+    needs: build_app # Este job depende do job 'build_app'
 
-  steps:
-    - name: "Passo 6: Acessando Secrets e Vars"
-      run: |
-        echo "URL do Ambiente: ${{ vars.URL_AMBIENTE }}"
-        echo "API Token (Secret): ${{ secrets.API_TOKEN_PROD }}"
+    steps:
+      - name: "Passo 6: Acessando Secrets e Vars"
+        run: |
+          # TODO: Imprima a variavel de repositorio URL_AMBIENTE e o secret API_TOKEN_PROD
+          echo "URL do Ambiente: ${{ vars.URL_AMBIENTE }}"
+          echo "API Token (Secret): ${{ secrets.API_TOKEN_PROD }}"
 
           # Pergunta de reflexao:
           # Por que a Secret aparece no log como *** e a variavel aparece normalmente?
